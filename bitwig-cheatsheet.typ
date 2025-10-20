@@ -97,13 +97,10 @@
 }
 
 // Hlavní obsah
-#header()
-#v(8pt)
-
-// Layout - plně vyplněná mřížka
+// Layout - mřížka s místem pro header dole
 #grid(
   columns: (1fr, 1fr, 1fr, 1fr),
-  rows: (1fr, 1fr, 1fr, 1fr),
+  rows: (1fr, 1fr, 1fr, 1fr, auto),
   gutter: 0pt,
   row-gutter: 0pt,
   
@@ -298,6 +295,12 @@
         ]
       ]
     ]
+  ),
+  
+  // Header jako pátý řádek (přes všechny 4 sloupce)
+  grid.cell(
+    colspan: 4,
+    header()
   ),
 )
 
