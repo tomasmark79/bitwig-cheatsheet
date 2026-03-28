@@ -1,306 +1,404 @@
 #set page(
   width: 3840pt,
   height: 2160pt,
-  margin: (x: 60pt, y: 50pt),
-  background: image("back01.jpg", width: 100%, height: 100%, fit: "stretch"),
-  fill: none,
+  margin: (x: 30pt, y: 30pt),
+  background: none,
+  fill: rgb("#0d1117"),
 )
 
 #set text(
-  font: "Inter",
+  font: ("Segoe UI", "Arial"),
   fill: rgb("#e8e8e8"),
-  size: 19pt,
+  size: 17pt,
 )
 
-// Barevné schéma
 #let accent-orange = rgb("#ff6b35")
-#let accent-blue = rgb("#00d4ff")
+#let accent-blue   = rgb("#00d4ff")
 #let accent-purple = rgb("#9d4edd")
-#let bg-dark = rgb("#0a0e27")
-#let bg-card = rgb("#1a1f3a")
-#let bg-highlight = rgb("#252d4a")
-#let text-primary = rgb("#e8e8e8")
+#let bg-highlight  = rgb("#1e2333")
 #let text-secondary = rgb("#a8a8b8")
-#let grid-line = rgb("#404060")
 
-// Funkce pro hlavičku
-#let header() = {
-  block(
-    width: 100%,
-    fill: none,
-    inset: 25pt,
-    radius: 15pt,
-    [
-      #align(center)[
-        #text(size: 52pt, weight: "black", fill: white)[BITWIG STUDIO SHORTCUTS]
-        #v(2pt)
-      ]
-    ]
-  )
-}
-
-// Funkce pro kartičku se zkratkami s kolečkem pro nadpis
-#let shortcut-card(title, shortcuts, color: accent-blue) = {
-  box(
-    width: 100%,
-    height: 100%,
-    {
-      // Hlavní kontejner se zkratkami
-      rect(
-        width: 100%,
-        height: 100%,
-        fill: none,
-        stroke: none,
-        radius: 0pt,
-        inset: (x: 20pt, y: 15pt),
-        [
-          #grid(
-            columns: (auto, 1fr),
-            column-gutter: 15pt,
-            align: (left, horizon),
-            text(size: 28pt, weight: "bold", fill: color)[#title],
-            line(length: 100%, stroke: 0.5pt + color.transparentize(70%))
-          )
-          #v(10pt)
-          #v(1fr)
-          #align(center)[
-            #table(
-              columns: (auto, auto),
-              stroke: none,
-              row-gutter: 8pt,
-              column-gutter: 30pt,
-              align: (right, left),
-              ..shortcuts.flatten()
-            )
-          ]
-          #v(1fr)
-        ]
-      )
-    }
-  )
-}
-
-// Funkce pro klávesovou zkratku
-#let key(content) = {
-  box(
-    fill: bg-highlight,
-    inset: (x: 12pt, y: 6pt),
-    radius: 5pt,
-    stroke: 1pt + rgb("#404060"),
-    text(weight: "semibold", fill: accent-orange, size: 22pt)[#content]
-  )
-}
-
-// Funkce pro popis zkratky
-#let desc(content) = {
-  text(fill: text-secondary, size: 22pt)[#content]
-}
-
-// Hlavní obsah
-// Layout - mřížka s místem pro header dole
-#grid(
-  columns: (1fr, 1fr, 1fr, 1fr),
-  rows: (1fr, 1fr, 1fr, 1fr, auto),
-  gutter: 0pt,
-  row-gutter: 0pt,
-  
-  shortcut-card("Transport & Playback", (
-    desc("Play/Pause"), key("Space"),
-    desc("Stop"), key("Enter"),
-    desc("Record"), key("F9"),
-    desc("Loop On/Off"), key("L"),
-    desc("Jump to Start"), key("W"),
-    desc("Jump to End"), key("E"),
-    desc("Tap Tempo"), key("T"),
-    desc("Metronome On/Off"), key("Shift + M"),
-  ), color: accent-orange),
-  
-  shortcut-card("Navigation", (
-    desc("Track Up"), key("↑"),
-    desc("Track Down"), key("↓"),
-    desc("Device Left"), key("←"),
-    desc("Device Right"), key("→"),
-    desc("Zoom In"), key("Ctrl + +"),
-    desc("Zoom Out"), key("Ctrl + -"),
-    desc("Zoom to Fit"), key("Z"),
-    desc("Follow Playback"), key("F"),
-  ), color: accent-blue),
-  
-  shortcut-card("Tracks", (
-    desc("Insert Audio Track"), key("Ctrl + T"),
-    desc("Insert Instrument Track"), key("Ctrl + Shift + T"),
-    desc("Duplicate Track"), key("Ctrl + D"),
-    desc("Delete Track"), key("Ctrl + Backspace"),
-    desc("Arm Track"), key("A"),
-    desc("Mute Track"), key("M"),
-    desc("Solo Track"), key("S"),
-    desc("Group Tracks"), key("Ctrl + G"),
-    desc("Color Track"), key("Ctrl + Alt + C"),
-    desc("Rename Track"), key("Ctrl + R"),
-  ), color: accent-purple),
-  
-  shortcut-card("Selection", (
-    desc("Select All"), key("Ctrl + A"),
-    desc("Select None"), key("Ctrl + Shift + A"),
-    desc("Invert Selection"), key("Ctrl + I"),
-    desc("Select Next"), key("Tab"),
-    desc("Select Previous"), key("Shift + Tab"),
-    desc("Extend Selection"), key("Shift + Arrow"),
-    desc("Add to Selection"), key("Ctrl + Click"),
-  ), color: accent-blue),
-  
-  shortcut-card("Editing", (
-    desc("Cut"), key("Ctrl + X"),
-    desc("Copy"), key("Ctrl + C"),
-    desc("Paste"), key("Ctrl + V"),
-    desc("Duplicate"), key("Ctrl + D"),
-    desc("Delete"), key("Delete"),
-    desc("Undo"), key("Ctrl + Z"),
-    desc("Redo"), key("Ctrl + Y"),
-    desc("Split at Playhead"), key("Ctrl + B"),
-    desc("Join Clips"), key("Ctrl + J"),
-    desc("Reverse Clip"), key("Ctrl + Shift + R"),
-  ), color: accent-purple),
-  
-  shortcut-card("Grid & Snap", (
-    desc("Toggle Snap"), key("Ctrl + Shift + S"),
-    desc("Adaptive Grid"), key("Alt + 4"),
-    desc("1 Bar Grid"), key("Alt + 1"),
-    desc("1/4 Grid"), key("Alt + 2"),
-    desc("1/16 Grid"), key("Alt + 3"),
-    desc("Triplet Grid"), key("Ctrl + 3"),
-  ), color: accent-orange),
-  
-  shortcut-card("Clips & Launcher", (
-    desc("Create Clip"), key("Ctrl + Shift + U"),
-    desc("Bounce in Place"), key("Alt + B"),
-    desc("Launch Scene"), key("Shift + Space"),
-    desc("Record Clip"), key("Shift + F9"),
-    desc("Quantize"), key("Q"),
-    desc("Double Loop Length"), key("Ctrl + L"),
-    desc("Halve Loop Length"), key("Ctrl + Shift + L"),
-    desc("Consolidate"), key("Ctrl + Alt + B"),
-    desc("Crop Clip"), key("Shift + Ctrl + Alt + C"),
-  ), color: accent-blue),
-  
-  shortcut-card("MIDI & Notes", (
-    desc("Draw Mode"), key("D"),
-    desc("Select Mode"), key("S"),
-    desc("Erase Mode"), key("Shift + E"),
-    desc("Audition Mode"), key("Shift + A"),
-    desc("Fold/Unfold Notes"), key("N"),
-    desc("Transpose Up"), key("Ctrl + ↑"),
-    desc("Transpose Down"), key("Ctrl + ↓"),
-    desc("Velocity Up"), key("Alt + ↑"),
-    desc("Velocity Down"), key("Alt + ↓"),
-    desc("Duplicate Notes"), key("Ctrl + D"),
-    desc("Legato"), key("L"),
-  ), color: accent-purple),
-  
-  shortcut-card("Mixer & Automation", (
-    desc("Show Mixer"), key("F11"),
-    desc("Toggle Automation"), key("U"),
-    desc("Write Automation"), key("Shift + U"),
-    desc("Touch Automation"), key("T"),
-    desc("Clear Automation"), key("Ctrl + Shift + U"),
-    desc("Add Automation Point"), key("Ctrl + Click"),
-    desc("Reset Parameter"), key("Alt + Click"),
-    desc("Pan Left"), key("Ctrl + Alt + ←"),
-    desc("Pan Right"), key("Ctrl + Alt + →"),
-  ), color: accent-blue),
-  
-  shortcut-card("Devices & Browser", (
-    desc("Show Browser"), key("Alt + B"),
-    desc("Show Device Panel"), key("F3"),
-    desc("Add Device"), key("Ctrl + Alt + D"),
-    desc("Replace Device"), key("Shift + Drag"),
-    desc("Bypass Device"), key("Ctrl + Shift + D"),
-    desc("Show Presets"), key("P"),
-    desc("Next Preset"), key("]"),
-    desc("Previous Preset"), key("["),
-    desc("Expand/Collapse Device"), key("Alt + Click"),
-    desc("Delete Device"), key("Backspace"),
-  ), color: accent-purple),
-  
-  shortcut-card("Windows & Views", (
-    desc("Full Screen"), key("F11"),
-    desc("Inspector Panel"), key("I"),
-    desc("Detail Editor"), key("Shift + F3"),
-    desc("Arranger View"), key("F1"),
-    desc("Mix View"), key("F2"),
-    desc("Edit View"), key("F3"),
-    desc("Hide/Show Panel"), key("Shift + F1-F4"),
-    desc("Toggle Fullscreen"), key("Alt + Enter"),
-    desc("Note Editor"), key("Shift + F2"),
-    desc("Automation Editor"), key("Shift + F1"),
-  ), color: accent-orange),
-  
-  shortcut-card("Essential Modifiers", (
-    desc("Fine Adjust"), key("Shift + Drag"),
-    desc("Reset to Default"), key("Alt + Click"),
-    desc("Relative Mode"), key("Ctrl + Drag"),
-    desc("Copy Value"), key("Ctrl + C"),
-    desc("Paste Value"), key("Ctrl + V"),
-  ), color: accent-blue),
-  
-  shortcut-card("Markers & Arranger", (
-    desc("Add Marker"), key("Ctrl + M"),
-    desc("Jump to Marker"), key("Ctrl + 1-9"),
-    desc("Create Scene"), key("Ctrl + Enter"),
-    desc("Duplicate Scene"), key("Ctrl + Shift + D"),
-    desc("Select Time"), key("Ctrl + Shift + T"),
-  ), color: accent-purple),
-  
-  shortcut-card("Audio & Recording", (
-    desc("Bounce Track"), key("Alt + Shift + B"),
-    desc("Render Track"), key("Ctrl + Alt + R"),
-    desc("Audio Comping"), key("C"),
-    desc("Create Fade In"), key("Alt + F"),
-    desc("Create Fade Out"), key("Alt + G"),
-    desc("Toggle Monitoring"), key("Alt + M"),
-  ), color: accent-purple),
-  
-  shortcut-card("Pro Tips & Workflow", (
-    desc("Multi-Edit Tracks"), key("Shift + Select"),
-    desc("Quick Browser"), key("Shift + F7"),
-    desc("Duplicate & Edit"), key("Ctrl + D + Edit"),
-    desc("Context Menu"), key("Right Click"),
-    desc("Inspector Toggle"), key("I"),
-    desc("Floating Window"), key("Shift + Drag"),
-  ), color: accent-orange),
-  
-  rect(
-    width: 100%,
-    height: 100%,
-    fill: none,
-    stroke: none,
-    radius: 0pt,
-    inset: 15pt,
-    [
-      #align(center + horizon)[
-        #text(size: 42pt, weight: "black", fill: white)[
-          by DotName
-        ]
-        #v(10pt)
-        #text(size: 18pt, fill: accent-blue, style: "italic")[
-          dotname\@digitalspace.name
-        ]
-        #v(15pt)
-        #text(size: 14pt, fill: rgb("#ffffff88"), style: "italic")[
-          Bitwig Studio Shortcuts Reference
-        ]
-        #v(8pt)
-        #text(size: 12pt, fill: rgb("#ffffff66"))[
-          2025 Edition
-        ]
-      ]
-    ]
-  ),
-  
-  // Header jako pátý řádek (přes všechny 4 sloupce)
-  grid.cell(
-    colspan: 4,
-    header()
-  ),
+#let key(content) = box(
+  fill: bg-highlight,
+  inset: (x: 6pt, y: 2pt),
+  radius: 3pt,
+  stroke: 0.75pt + rgb("#404060"),
+  text(weight: "semibold", fill: accent-orange, size: 17pt)[#content]
 )
+
+#let desc(content) = text(fill: text-secondary, size: 17pt)[#content]
+
+#let card(title, shortcuts, color: accent-blue) = block(
+  width: 100%,
+  breakable: false,
+  below: 10pt,
+  {
+    text(size: 17pt, weight: "bold", fill: color)[#title]
+    v(2pt)
+    line(length: 100%, stroke: 0.5pt + color.transparentize(55%))
+    v(3pt)
+    table(
+      columns: (auto, auto),
+      stroke: none,
+      row-gutter: 1pt,
+      column-gutter: 8pt,
+      align: (right, left),
+      ..shortcuts.flatten()
+    )
+  }
+)
+
+#v(1fr)
+#columns(6, gutter: 18pt)[
+
+  #card("File", (
+    desc("New Project"), key("Ctrl+N"),
+    desc("New From Template..."), key("Ctrl+Shift+N"),
+    desc("Open..."), key("Ctrl+O"),
+    desc("Close"), key("Ctrl+W"),
+    desc("Save"), key("Ctrl+S"),
+    desc("Save as..."), key("Ctrl+Shift+S"),
+    desc("Quit"), key("Ctrl+Q"),
+  ), color: accent-orange)
+
+  #card("General", (
+    desc("Pointer tool"), key("1"),
+    desc("Time Selection tool"), key("2"),
+    desc("Pencil tool"), key("3"),
+    desc("Spray Can tool"), key("4"),
+    desc("Knife tool"), key("5"),
+    desc("Eraser tool"), key("6"),
+    desc("Audition tool"), key("7"),
+    desc("Step Input tool"), key("8"),
+    desc("Pencil tool (Curve Editor)"), key("2"),
+    desc("Ramp tool (Curve Editor)"), key("5"),
+    desc("Step tool (Curve Editor)"), key("3"),
+    desc("Triangle tool (Curve Editor)"), key("7"),
+    desc("Adaptive Beat Grid"), key("/"),
+    desc("Larger Beat Grid"), key("."),
+    desc("Smaller Beat Grid"), key(","),
+    desc("Larger Beat Grid Subdivision"), key("Alt+,"),
+    desc("Smaller Beat Grid Subdivision"), key("Alt+."),
+    desc("Time Snapping"), key("S"),
+    desc("Snap to Beat Grid"), key("Shift+,"),
+    desc("Snap to Other Events"), key("Shift+/"),
+    desc("Snap Relative to Original Event"), key("Shift+."),
+    desc("Bounce In Place (Pre-FX)"), key("Ctrl+B"),
+    desc("Bounce In Place (Pre-Fader)"), key("Ctrl+Alt+B"),
+    desc("Bounce In Place (Post-Fader)"), key("Ctrl+Shift+Alt+B"),
+    desc("Auto-Fade"), key("Ctrl+F"),
+    desc("Auto-Crossfade"), key("Ctrl+Shift+F"),
+    desc("Reset Fades"), key("Ctrl+Alt+F"),
+    desc("Fade In to Here"), key("Shift+7"),
+    desc("Fade Out from Here"), key("Shift+0"),
+    desc("Gain +6dB"), key("Alt+Up"),
+    desc("Gain +1dB"), key("Shift+Alt+Up"),
+    desc("Gain -6dB"), key("Alt+Down"),
+    desc("Gain -1dB"), key("Shift+Alt+Down"),
+    desc("Transpose Semitone Up"), key("Alt++"),
+    desc("Transpose Semitone Down"), key("Alt+-"),
+    desc("Transpose Octave Up"), key("Shift+Alt++"),
+    desc("Transpose Octave Down"), key("Shift+Alt+-"),
+    desc("Quantize"), key("Q"),
+    desc("Quantize..."), key("Alt+Q"),
+    desc("Quantize Length"), key("Ctrl+Alt+L"),
+    desc("Make Legato"), key("Ctrl+Shift+Alt+L"),
+    desc("Split"), key("Ctrl+E"),
+    desc("Consolidate"), key("Ctrl+J"),
+    desc("Loop Selected Region"), key("Ctrl+L"),
+    desc("Double Content"), key("Ctrl+2"),
+    desc("Insert Silence"), key("Ctrl+Shift+P"),
+    desc("Cut Time"), key("Ctrl+Shift+X"),
+    desc("Paste Time"), key("Ctrl+Shift+V"),
+    desc("Remove Time"), key("Shift+Backspace"),
+    desc("Duplicate Time"), key("Ctrl+Shift+D"),
+    desc("Slide Content Left"), key("Alt+Left"),
+    desc("Slide Content Right"), key("Alt+Right"),
+    desc("Set Object Start"), key("Shift+8"),
+    desc("Set Object End"), key("Shift+9"),
+    desc("Nudge One Step Backward"), key("Left"),
+    desc("Nudge One Step Forward"), key("Right"),
+    desc("Nudge Fine Backward"), key("Shift+Left"),
+    desc("Nudge Fine Forward"), key("Shift+Right"),
+    desc("Make Events One Step Longer"), key("Up"),
+    desc("Make Events One Step Shorter"), key("Down"),
+    desc("Make Events Fine Amount Longer"), key("Shift+Up"),
+    desc("Make Events Fine Amount Shorter"), key("Shift+Down"),
+    desc("Select Next Track"), key("Page Down"),
+    desc("Select Previous Track"), key("Page Up"),
+    desc("Add Automation Lane"), key("Enter"),
+    desc("Launch"), key("Enter"),
+    desc("Focus/toggle Browser Panel"), key("Alt+B"),
+    desc("Insert from Library..."), key("B"),
+    desc("Commander..."), key("Ctrl+Enter"),
+    desc("Wrap Related Automation as Clips"), key("Ctrl+G"),
+    desc("Settings"), key("Ctrl+,"),
+  ), color: accent-blue)
+
+  #card("Editing", (
+    desc("Copy"), key("Ctrl+C"),
+    desc("Cut"), key("Ctrl+X"),
+    desc("Paste"), key("Ctrl+V"),
+    desc("Paste as Alias"), key("Ctrl+Alt+V"),
+    desc("Duplicate"), key("Ctrl+D"),
+    desc("Duplicate as Alias"), key("Ctrl+Alt+D"),
+    desc("Delete"), key("Backspace"),
+    desc("Undo"), key("Ctrl+Z"),
+    desc("Redo"), key("Ctrl+Y"),
+    desc("Rename"), key("Ctrl+R"),
+    desc("Group"), key("Ctrl+G"),
+    desc("Ungroup"), key("Ctrl+Shift+G"),
+    desc("Flatten as Track Automation"), key("Ctrl+Shift+G"),
+    desc("Wrap as Automation Clip"), key("Ctrl+G"),
+    desc("Toggle Active/Mute State"), key("Alt+A"),
+    desc("Toggle Hold"), key("H"),
+    desc("Switch Object / Time Selection"), key("Ctrl+T"),
+  ), color: accent-purple)
+
+  #card("Navigation", (
+    desc("Collapse Item"), key("Left"),
+    desc("Expand Item"), key("Right"),
+    desc("Focus next field"), key("Tab"),
+    desc("Focus previous field"), key("Shift+Tab"),
+    desc("Focus panel above"), key("Ctrl+Shift+Up"),
+    desc("Focus panel below"), key("Ctrl+Shift+Down"),
+    desc("Focus panel to the left"), key("Ctrl+Shift+Left"),
+    desc("Focus panel to the right"), key("Ctrl+Shift+Right"),
+    desc("Focus widget above"), key("Up"),
+    desc("Focus widget below"), key("Down"),
+    desc("Focus widget to the left"), key("Left"),
+    desc("Focus widget to the right"), key("Right"),
+    desc("Open in Editor"), key("Enter"),
+    desc("Select Next Project"), key("Ctrl+Tab"),
+    desc("Select Previous Project"), key("Ctrl+Shift+Tab"),
+    desc("Select Next Tab"), key("Ctrl+Down"),
+    desc("Select Previous Tab"), key("Ctrl+Up"),
+    desc("Toggle children expanded state"), key("Ctrl+Enter"),
+    desc("Toggle siblings expanded state"), key("Shift+Enter"),
+  ), color: accent-orange)
+
+  #card("Selection", (
+    desc("Select All"), key("Ctrl+A"),
+    desc("Deselect All"), key("Ctrl+Shift+A"),
+    desc("Toggle selection at cursor"), key("Ctrl+Space"),
+    desc("Select first item"), key("Home"),
+    desc("Select last item"), key("End"),
+    desc("Select item above"), key("Up"),
+    desc("Select item below"), key("Down"),
+    desc("Select item to left"), key("Left"),
+    desc("Select item to right"), key("Right"),
+    desc("Select Item in Next Lane"), key("Down / Right"),
+    desc("Select Item in Previous Lane"), key("Up / Left"),
+    desc("Select Next Item"), key("Down"),
+    desc("Select Previous Item"), key("Up"),
+    desc("Extend range to item above"), key("Shift+Up"),
+    desc("Extend range to item below"), key("Shift+Down"),
+    desc("Extend range to item to left"), key("Shift+Left"),
+    desc("Extend range to item to right"), key("Shift+Right"),
+    desc("Extend range to first item"), key("Ctrl+Shift+Up"),
+    desc("Extend range to last item"), key("Ctrl+Shift+Down"),
+    desc("Extend selection to first item"), key("Ctrl+Shift+Home"),
+    desc("Extend selection to last item"), key("Ctrl+Shift+End"),
+    desc("Extend selection to item above"), key("Ctrl+Shift+Up"),
+    desc("Extend selection to item below"), key("Ctrl+Shift+Down"),
+    desc("Extend selection to item to left"), key("Ctrl+Shift+Left"),
+    desc("Extend selection to item to right"), key("Ctrl+Shift+Right"),
+    desc("Move cursor up"), key("Ctrl+Up"),
+    desc("Move cursor down"), key("Ctrl+Down"),
+    desc("Move cursor left"), key("Ctrl+Left"),
+    desc("Move cursor right"), key("Ctrl+Right"),
+    desc("Move cursor to first item"), key("Ctrl+Up"),
+    desc("Move cursor to last item"), key("Ctrl+Down"),
+    desc("Move Cursor to Next Lane"), key("Ctrl+Right"),
+    desc("Move Cursor to Previous Lane"), key("Ctrl+Left"),
+  ), color: accent-blue)
+
+  #card("Help", (
+    desc("Show Item Help"), key("F1"),
+  ), color: accent-orange)
+
+  #card("Window Management", (
+    desc("Full screen"), key("F11"),
+    desc("Maximize window"), key("Ctrl+M"),
+    desc("Minimize window"), key("Ctrl+Shift+M"),
+  ), color: accent-blue)
+
+  #card("Dialogs", (
+    desc("OK"), key("Enter"),
+    desc("Cancel Dialog"), key("Escape"),
+    desc("Yes"), key("Y"),
+    desc("No"), key("N"),
+  ), color: accent-purple)
+
+  #card("Text Editing", (
+    desc("Commit Text"), key("Enter"),
+    desc("Stop Editing Text"), key("Escape"),
+    desc("Insert new line"), key("Numpad Enter"),
+    desc("Delete char left"), key("Backspace"),
+    desc("Delete char right"), key("Delete"),
+    desc("Move cursor left"), key("Left"),
+    desc("Move cursor right"), key("Right"),
+    desc("Move cursor up"), key("Up"),
+    desc("Move cursor down"), key("Down"),
+    desc("Move cursor word left"), key("Ctrl+Left"),
+    desc("Move cursor word right"), key("Ctrl+Right"),
+    desc("Move cursor to start of line"), key("Ctrl+A / Home"),
+    desc("Move cursor to end of line"), key("Ctrl+E / End"),
+    desc("Move cursor to start of doc"), key("Ctrl+Home"),
+    desc("Move cursor to end of doc"), key("Ctrl+End"),
+    desc("Extend selection left"), key("Shift+Left"),
+    desc("Extend selection right"), key("Shift+Right"),
+    desc("Extend selection up"), key("Shift+Up"),
+    desc("Extend selection down"), key("Shift+Down"),
+    desc("Extend selection word left"), key("Ctrl+Shift+Left"),
+    desc("Extend selection word right"), key("Ctrl+Shift+Right"),
+    desc("Extend selection to start of line"), key("Ctrl+Shift+A"),
+    desc("Extend selection to end of line"), key("Ctrl+Shift+E"),
+    desc("Extend selection to start of doc"), key("Ctrl+Shift+Home"),
+    desc("Extend selection to end of doc"), key("Ctrl+Shift+End"),
+    desc("Reload"), key("Ctrl+R"),
+  ), color: accent-orange)
+
+  #card("Search", (
+    desc("Invoke search-field action"), key("Tab"),
+  ), color: accent-blue)
+
+  #card("Zooming", (
+    desc("Zoom In Horizontally"), key("Ctrl++"),
+    desc("Zoom Out Horizontally"), key("Ctrl+-"),
+    desc("Zoom In Vertically"), key("Ctrl+Shift++"),
+    desc("Zoom Out Vertically"), key("Ctrl+Shift+-"),
+    desc("Zoom to Fit"), key("Ctrl+0"),
+    desc("Zoom to Fit Selection Or All"), key("Z"),
+  ), color: accent-purple)
+
+  #card("Project", (
+    desc("Add Instrument Track"), key("Ctrl+T"),
+    desc("Add Audio Track"), key("Ctrl+Shift+T"),
+    desc("Add FX Track"), key("Ctrl+Alt+T"),
+    desc("Add Group Track"), key("Ctrl+Alt+G"),
+    desc("Add Scene"), key("Ctrl+I"),
+    desc("Play or Stop Transport"), key("P / Space"),
+    desc("Play from Start, or Stop"), key("Alt+P / Alt+Space"),
+    desc("Continue Playback or Stop"), key("Shift+P / Shift+Space"),
+    desc("Stop Transport"), key("Stop"),
+    desc("Toggle Record"), key("F9"),
+    desc("Tap Tempo"), key("Ctrl+Alt+Space"),
+    desc("Toggle Metronome"), key("Shift+M"),
+    desc("Toggle Track Arm"), key("Shift+A"),
+    desc("Toggle Track Mute"), key("Shift+X"),
+    desc("Toggle Track Solo / Cue"), key("Shift+S"),
+    desc("Toggle Global Automation Behavior"), key("0"),
+    desc("View follows playhead"), key("Shift+F"),
+    desc("Export Audio..."), key("Ctrl+Shift+B"),
+    desc("Activate Engine for Project"), key("F12"),
+  ), color: accent-orange)
+
+  #card("Clip Launcher", (
+    desc("Add Scene from Playing Clips"), key("Ctrl+Shift+I"),
+  ), color: accent-blue)
+
+  #card("Panel Management", (
+    desc("Focus Track Header Area"), key("T / Alt+T"),
+    desc("Focus/toggle Arranger Timeline"), key("O / Alt+O"),
+    desc("Focus/toggle Clip Editor"), key("E / Alt+E"),
+    desc("Focus/toggle Clip Launcher"), key("L / Alt+L"),
+    desc("Focus/toggle Device Panel"), key("D / Alt+D"),
+    desc("Focus/toggle Inspector Panel"), key("I / Alt+I"),
+    desc("Focus/toggle Mixer Panel"), key("M / Alt+M"),
+    desc("Toggle Device Panel"), key("F3"),
+    desc("Toggle Mixer Panel"), key("F4"),
+    desc("Toggle Edit View"), key("Shift+Tab"),
+    desc("Toggle Track-timeline vs. Clip-content"), key("Alt+C"),
+    desc("Select Sub-panel 1"), key("F5"),
+    desc("Select Sub-panel 2"), key("F6"),
+    desc("Select Sub-panel 3"), key("F7"),
+    desc("Select Sub-panel 4"), key("F8"),
+    desc("Select Next Mode"), key("Tab"),
+    desc("Select Next Sub-panel"), key("`"),
+    desc("Select Previous Sub-panel"), key("Shift+`"),
+    desc("Auto Zoom Selected Track"), key("Shift+Z"),
+    desc("Show Cue Markers"), key("Shift+Alt+C"),
+  ), color: accent-purple)
+
+  #card("Arranger", (
+    desc("Toggle Automation Mode"), key("A"),
+    desc("Toggle Automation Lanes (All Tracks)"), key("Ctrl+Alt+A"),
+    desc("Toggle Flying Automation Lane"), key("Shift+Alt+A"),
+    desc("Zoom In Lane Heights (All Tracks)"), key("Ctrl+Shift+Page Down"),
+    desc("Zoom In Lane Heights (Selected)"), key("Shift+Page Down"),
+    desc("Zoom Out Lane Heights (All Tracks)"), key("Ctrl+Shift+Page Up"),
+    desc("Zoom Out Lane Heights (Selected)"), key("Shift+Page Up"),
+  ), color: accent-orange)
+
+  #card("Mixer", (
+    desc("Mixer Zoom In (All Tracks)"), key("Ctrl++"),
+    desc("Mixer Zoom Out (All Tracks)"), key("Ctrl+-"),
+  ), color: accent-blue)
+
+  #card("Detail Editor", (
+    desc("Show next editor mode"), key("F / Alt+F"),
+    desc("Snap to Key"), key("K"),
+    desc("Toggle Automation Lane"), key("A"),
+    desc("Toggle Edit Audio Expression"), key("X"),
+    desc("Toggle Edit Audio Gain"), key("G"),
+    desc("Toggle Edit Audio Transpose"), key("T"),
+    desc("Toggle Edit Note Expression"), key("X"),
+    desc("Toggle Edit Note Gain"), key("G"),
+    desc("Toggle Edit Note Transpose"), key("P"),
+    desc("Toggle Note Expression Lane"), key("V"),
+  ), color: accent-purple)
+
+  #card("Multisample", (
+    desc("Nudge Up"), key("Up"),
+    desc("Nudge Down"), key("Down"),
+    desc("Nudge Left"), key("Left"),
+    desc("Nudge Right"), key("Right"),
+    desc("Nudge Up (coarse)"), key("Shift+Up"),
+    desc("Nudge Down (coarse)"), key("Shift+Down"),
+    desc("Nudge Left (coarse)"), key("Shift+Left"),
+    desc("Nudge Right (coarse)"), key("Shift+Right"),
+  ), color: accent-blue)
+
+  #card("Browser", (
+    desc("Clear Focused Filter"), key("X"),
+    desc("Focus Browser File List"), key("Ctrl+R / Down / Ctrl+Down / Right"),
+    desc("Focus Browser Search Field"), key("S / Ctrl+Up / Page Up"),
+    desc("Focus Category or Creator Column"), key("C"),
+    desc("Focus Device Column"), key("D"),
+    desc("Focus File Kind Or Type Column"), key("F"),
+    desc("Focus Filters"), key("Ctrl+Up / Ctrl+Down / Left / Ctrl+Left / Page Up"),
+    desc("Focus Location Column"), key("L"),
+    desc("Focus Tags Column"), key("T"),
+    desc("Focus Vendor Column"), key("V"),
+    desc("Remove from all Collections"), key("Alt+0 / Alt+Numpad 0"),
+    desc("Select Everything"), key("F1"),
+    desc("Select Next Filter Column"), key("Ctrl+Alt+Down / Ctrl+Alt+Right"),
+    desc("Select Next Palette Item"), key("Ctrl+Alt+Down / Ctrl+Alt+Right"),
+    desc("Select Prev Filter Column"), key("Ctrl+Alt+Up / Ctrl+Alt+Left"),
+    desc("Select Prev Palette Item"), key("Ctrl+Alt+Up / Ctrl+Alt+Left"),
+    desc("Show Presets for Device"), key("Right"),
+    desc("Stop Showing Presets for Device"), key("Left"),
+    desc("Toggle All Sources view"), key("Ctrl+0"),
+    desc("Toggle Favorite"), key("0 / Numpad 0"),
+    desc("Toggle Preview Playback of Selected File"), key("Right"),
+    desc("Toggle Show Favorites"), key("`"),
+  ), color: accent-orange)
+
+  #card("Comping", (
+    desc("Select Next Take"), key("Up"),
+    desc("Select Previous Take"), key("Down"),
+  ), color: accent-purple)
+
+]
+#v(1fr)
+
+
+
+
+
+
+
+
+
 
