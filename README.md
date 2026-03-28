@@ -1,6 +1,6 @@
 # Bitwig Studio Shortcuts Cheat Sheet
 
-**Bitwig Studio 6.0**
+**Bitwig Studio 6**
 
 ![Bitwig Studio Shortcuts](bitwig-cheatsheet.png)
 
@@ -8,15 +8,15 @@
 
 - 4K resolution (3840×2160)
 
-## Instalace (Windows)
+## Installation (Windows)
 
-Typst lze nainstalovat přes [WinGet](https://learn.microsoft.com/en-us/windows/package-manager/winget/) (součást Windows 10/11):
+Typst can be installed via [WinGet](https://learn.microsoft.com/en-us/windows/package-manager/winget/) (included in Windows 10/11):
 
 ```powershell
 winget install --id Typst.Typst
 ```
 
-Po instalaci je `typst.exe` dostupný na:
+After installation, `typst.exe` is available at:
 ```
 %LOCALAPPDATA%\Microsoft\WinGet\Links\typst.exe
 ```
@@ -33,7 +33,7 @@ typst compile bitwig-cheatsheet.typ
 typst compile bitwig-cheatsheet.typ --format png --ppi 72 bitwig-cheatsheet.png
 ```
 
-Na Windows (PowerShell) s plnou cestou:
+On Windows (PowerShell) with the full path:
 
 ```powershell
 $typst = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Links\typst.exe'
