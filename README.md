@@ -1,5 +1,7 @@
 # Bitwig Studio Shortcuts Cheat Sheet
 
+[![PayPal](https://img.shields.io/badge/PayPal-Donate-blue?logo=paypal)](https://paypal.me/TomasMark)
+
 **Bitwig Studio 6**
 
 ![Bitwig Studio Shortcuts](bitwig-cheatsheet.png)
@@ -39,9 +41,3 @@ On Windows (PowerShell) with the full path:
 $typst = Join-Path $env:LOCALAPPDATA 'Microsoft\WinGet\Links\typst.exe'
 & $typst compile bitwig-cheatsheet.typ --format png --ppi 72 bitwig-cheatsheet.png
 ```
-
-## Support
-
-If you find this cheat sheet helpful, consider buying me a coffee! ☕
-
-[paypal.me/TomasMark](https://paypal.me/TomasMark)
